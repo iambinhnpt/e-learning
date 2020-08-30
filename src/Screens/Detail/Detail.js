@@ -1,6 +1,9 @@
 import React, { Component } from "react";
-import Axios from "axios";
 import { connect } from "react-redux";
+import { FETCH_DETAIL } from "../../Redux/Const/Const";
+import { courseService } from "../../Services";
+import { createAction } from "../../Redux/Actions/action";
+import { fetchCourseDetail } from "../../Redux/Actions/user";
 
 class Detail extends Component {
   render() {
@@ -14,18 +17,7 @@ class Detail extends Component {
   }
 
   componentDidMount() {
-    Axios({
-      method: "GET",
-      url:
-        "http://elearning0706.cybersoft.edu.vn/api/QuanLyKhoaHoc/LayThongTinKhoaHoc?maKhoaHoc=001",
-    })
-      .then((res) =>
-        this.props.dispatch({
-          type: "FETCH_DETAIL",
-          payload: res.data,
-        })
-      )
-      .catch((err) => console.log(err.response));
+    this.props.dispatch(fetchCourseDetail(this.props.match.params.courseID));
   }
 }
 

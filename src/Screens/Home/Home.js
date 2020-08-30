@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import CoursesItem from "../../Components/CoursesItems/CoursesItem";
-import Axios from "axios";
 import { connect } from "react-redux";
+import { fetchCourses } from "../../Redux/Actions/user";
 class Home extends Component {
   render() {
     return (
@@ -20,18 +20,7 @@ class Home extends Component {
     );
   }
   componentDidMount() {
-    Axios({
-      method: "GET",
-      url:
-        "http://elearning0706.cybersoft.edu.vn/api/QuanLyKhoaHoc/LayDanhSachKhoaHoc?MaNhom=GP09",
-    })
-      .then((res) => {
-        this.props.dispatch({
-          type: "FETCH_COURSES",
-          payload: res.data,
-        });
-      })
-      .catch((err) => console.log(err));
+    this.props.dispatch(fetchCourses());
   }
 }
 
